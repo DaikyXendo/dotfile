@@ -22,6 +22,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local util = require 'lspconfig.util'
+
+
 nvim_lsp.emmet_ls.setup {
     on_attach = on_attach,
     filetypes = { "html" }
@@ -40,12 +43,43 @@ nvim_lsp.jsonls.setup {
     on_attach = on_attach,
 }
 
-nvim_lsp.tailwindcss.setup {}
+-- nvim_lsp.eslint.setup {
+--     on_attach = function(client)
+--         client.server_capabilities.documentFormattingProvider = true
+--     end,
+--     root_dir = util.root_pattern('.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc'),
+-- }
+
+nvim_lsp.tailwindcss.setup {
+    on_attach = on_attach
+}
 
 nvim_lsp.tsserver.setup {
     on_attach = on_attach,
-    -- cmd = { 'typescript-language-server', '--stdio' },
-    -- filetypes = {'javascript'}
+    settings = {
+        typescript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayEnumMemberValueHints = true,
+            },
+        },
+        javascript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayEnumMemberValueHints = true,
+            },
+        },
+    },
 }
 
 nvim_lsp.vuels.setup {
@@ -58,12 +92,12 @@ nvim_lsp.rust_analyzer.setup {
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = {
-                allFeatures = true,
-                overrideCommand = {
-                    'cargo', 'clippy', '--workspace', '--message-format=json',
-                    '--all-targets', '--all-features'
-                }
-            }
+                command = "clippy",
+            },
+            completion = {
+                addCallParenthesis = true,
+                addCallArgumentSnippets = true,
+            },
         }
     }
 }
@@ -74,13 +108,20 @@ nvim_lsp.taplo.setup {
 
 nvim_lsp.pyright.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     settings = {
         python = {
             analysis = {
-                autoImportCompletions = false,
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = false,
+                diagnosticMode = 'openFilesOnly',
             },
-        }
-    }
+        },
+    },
+    root_dir = function(fname)
+        return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
+            util.path.dirname(fname)
+    end
 }
 
 nvim_lsp.solc.setup {
@@ -99,4 +140,55 @@ nvim_lsp.lua_ls.setup {
             }
         }
     }
+}
+
+nvim_lsp.svelte.setup {
+    settings = {
+        svelte = {
+            plugin = {
+                css = {
+                    completion = {
+                        enable = true,
+                    },
+                    diagnostics = {
+                        -- enable = false,
+                    },
+                },
+                svelte = {
+                    default_script_language = "javascript",
+                    compilerWarnings = {
+                        ['a11y-no-static-element-interactions'] = "ignore",
+                        ['a11y-click-events-have-key-events'] = "ignore",
+                        ["a11y-missing-attribute"] = "ignore",
+                        ['a11y-no-noninteractive-element-interactions'] = "ignore",
+                        ["a11y-no-onchange"] = "ignore",
+                        ["a11y-aria-attributes"] = "ignore",
+                        ["a11y-incorrect-aria-attribute-type"] = "ignore",
+                        ["a11y-unknown-aria-attribute"] = "ignore",
+                        ["a11y-hidden"] = "ignore",
+                        ["a11y-misplaced-role"] = "ignore",
+                        ["a11y-unknown-role"] = "ignore",
+                        ["a11y-no-abstract-role"] = "ignore",
+                        ["a11y-no-redundant-roles"] = "ignore",
+                        ["a11y-role-has-required-aria-props"] = "ignore",
+                        ["a11y-accesskey"] = "ignore",
+                        ["a11y-autofocus"] = "ignore",
+                        ["a11y-misplaced-scope"] = "ignore",
+                        ["a11y-positive-tabindex"] = "ignore",
+                        ["a11y-invalid-attribute"] = "ignore",
+                        ["a11y-img-redundant-alt"] = "ignore",
+                        ["a11y-label-has-associated-control"] = "ignore",
+                        ["a11y-media-has-caption"] = "ignore",
+                        ["a11y-distracting-elements"] = "ignore",
+                        ["a11y-structure"] = "ignore",
+                        ["a11y-mouse-events-have-key-events"] = "ignore",
+                        ["a11y-missing-content"] = "ignore",
+                    },
+                    includeInlayFunctionParameterTypeHints = false,
+                    includeInlayFunctionLikeReturnTypeHints = false,
+                },
+            },
+        },
+    },
+    --root_dir = {root_pattern()}
 }

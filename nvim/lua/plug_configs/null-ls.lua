@@ -27,9 +27,9 @@ null_ls.setup({
     sources = {
         formatting.prettier.with {
             filetypes = { "html", "css", "scss", "solidity", "javascript", "typescriptreact", "javascriptreact", "rust",
-                "json", "lua", "vue" },
+                "json", "lua", "vue", "svelte" },
             extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote", "--tab-width", 4, "--max-line-length", 80 },
         },
-        formatting.autopep8,
+        formatting.black,
     },
 })

@@ -1,0 +1,25 @@
+font: 
+  size: 20
+  normal:
+    family: CaskaydiaCove Nerd Font
+    style: Regular
+
+mouse:
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
+
+cursor:
+  style:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    shape: Beam
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the window is not focused.
+  unfocused_hollow: true
+
+window:
+  decorations: "none"
+  opacity: 0.8
+
+background_blur: true

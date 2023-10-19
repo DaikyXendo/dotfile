@@ -51,7 +51,6 @@ saga.setup({
             ['Array'] = { '⛓️ ', 'Type' },
             ['Object'] = { '📚', 'Type' },
             ['Null'] = { '🟩', 'Constant' },
-
         },
     },
     outline = {
@@ -60,6 +59,9 @@ saga.setup({
             expand_collapse = "h",
             quit = "q",
         },
+    },
+    lightbulb = {
+        enable = false
     },
     finder = {
         --percentage
@@ -76,3 +78,4 @@ saga.setup({
         },
     },
 })
+

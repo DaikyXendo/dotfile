@@ -20,10 +20,12 @@ treesitter.setup({
         "lua",
         "vue",
         "markdown",
-        "markdown_inline"
+        "markdown_inline",
+        "svelte",
     },
     -- one of "all" or a list of languages
     sync_install = false,         -- install languages synchronously (only applied to `ensure_installed`)
+    auto_install = true,          -- automatically install missing parsers
     ignore_install = { "" },      -- List of parsers to ignore installing
     highlight = {
         enable = true,            -- false will disable the whole extension

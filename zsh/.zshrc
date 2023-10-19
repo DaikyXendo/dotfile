@@ -9,10 +9,12 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="/Users/thanhlevan/.local/share/solana/install/active_release/bin:$PATH"
 export PATH="/usr/local/opt/node@16/bin:$PATH"
 export OPENAI_API_KEY="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"
+export PATH="/Applications/Google Chrome.app/Contents/MacOS:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -81,10 +83,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  z
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -119,8 +121,14 @@ alias e="nvim"
 alias c='clear && printf "\e[3J"'
 alias ..="cd .."
 alias ...="cd ../.."
-alias ll="ls -la"
+alias ls='exa --icons --color=always --group-directories-first'
+alias ll='exa -alF --icons --color=always --group-directories-first'
+alias la='exa -a --icons --color=always --group-directories-first'
+alias l='exa -F --icons --color=always --group-directories-first'
+alias l.='exa -a | egrep "^\."'
 alias mc="cd ~/Documents/web/TLauncher-2.86 && open TLauncher-2.86.jar"
+alias f="fuck"
+alias getip="ipconfig getifaddr en0 | tr -d '\n' | pbcopy"
 
 g_push() {
     git add .
@@ -134,8 +142,12 @@ g_new() {
     git commit -m "first commit"
     git branch -M main
     git remote add origin git@github.com:DaikyXendo/$1.git
-    git remote set-url origin https://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@github.com/DaikyXendo/$1.git
+    git remote set-url origin https://<your-github-token>@github.com/DaikyXendo/$1.git
     git push -u origin main
+}
+
+format() {
+    prettier --no-semi --single-quote --tab-width 4 --max-line-length 80 --write $1
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -149,4 +161,20 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export NVM_DIR=$HOME/.nvm
+
+JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
+export JAVA_HOME
+CLASS_PATH="$JAVA_HOME/lib"
+PATH=".$PATH:$JAVA_HOME/bin"
+
+eval $(thefuck --alias)
+source  /usr/local/opt/chruby/share/chruby/chruby.sh
+source  /usr/local/opt/chruby/share/chruby/auto.sh
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+export TERM="xterm-kitty"
+
 

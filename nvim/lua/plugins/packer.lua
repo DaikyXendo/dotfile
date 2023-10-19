@@ -3,7 +3,6 @@ local packer = require("packer")
 return packer.startup(function()
     -- Packer
     use("wbthomason/packer.nvim")
-
     -- Startup
     use("goolord/alpha-nvim")
 
@@ -30,7 +29,7 @@ return packer.startup(function()
     use("RRethy/vim-illuminate")
 
     -- Rainbow brackets
-    use("p00f/nvim-ts-rainbow")
+    use("HiPhish/rainbow-delimiters.nvim")
 
     -- Tree sistter
     use("nvim-treesitter/nvim-treesitter")
@@ -54,10 +53,11 @@ return packer.startup(function()
     -- LSP
     use("neovim/nvim-lspconfig")
     use("onsails/lspkind.nvim")
-    use("glepnir/lspsaga.nvim")
+    use("nvimdev/lspsaga.nvim")
     use("ray-x/lsp_signature.nvim")
 
     -- Autocomplete
+    -- use('ms-jpq/coq_nvim')
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lua")
     use("hrsh7th/cmp-buffer")
@@ -68,17 +68,11 @@ return packer.startup(function()
     use("MunifTanjim/nui.nvim")
 
     -- AI
-    use { "Exafunction/codeium.vim",
-        config = function()
-            vim.keymap.set('i', '<Cmd-y>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-            vim.keymap.set('i', '<M-n>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-            vim.keymap.set('i', '<M-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-            vim.keymap.set('i', '<M-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-        end
-    }
+    use("Exafunction/codeium.vim")
 
     -- Snippet
     use("L3MON4D3/LuaSnip")
+    use("saadparwaiz1/cmp_luasnip")
     use("rafamadriz/friendly-snippets")
 
     -- LSP installer
@@ -106,6 +100,9 @@ return packer.startup(function()
 
     -- Quick select
     use("phaazon/hop.nvim")
+
+    -- Tailwind
+    use("roobert/tailwindcss-colorizer-cmp.nvim")
 
     -- Git
     use("tanvirtin/vgit.nvim")

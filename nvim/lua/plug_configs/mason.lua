@@ -22,6 +22,7 @@ lspconfig.setup {
         "taplo",
         "tailwindcss",
         "vuels",
+        "svelte",
     },
     automatic_installation = true,
 }

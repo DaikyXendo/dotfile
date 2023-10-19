@@ -13,8 +13,21 @@ vim.api.nvim_create_user_command('W', function()
     vim.api.nvim_command("w")
 end, {})
 
+vim.api.nvim_create_user_command('Git',
+    function(opts)
+        if opts.fargs[1] == "diff" then
+            vim.api.nvim_command("VGit buffer_diff_preview")
+        elseif opts.fargs[1] == "his" then
+            vim.api.nvim_command("VGit buffer_history_preview")
+        elseif opts.fargs[1] == "pdiff" then
+            vim.api.nvim_command("VGit project_diff_preview")
+        end
+    end,
+    { nargs = 1 })
+
+
 -- Ctrl + C = Esc
-keymap("i", "<C-c>", "<Esc>", opts)
+keymap("i", "<C-c>", "<Esc><Esc>", opts)
 
 -- Center line
 keymap('n', 'j', 'jzz', opts)
@@ -35,20 +48,23 @@ keymap("n", "<S-Left>", "<C-w>h", opts)
 
 -- Delete without cutting --
 keymap("n", "d", '"_d', opts)
-keymap("x", "x", '"_x', opts)
+keymap("x", "d", '"_d', opts)
 
 -- Change without cutting
 keymap("n", "c", '"_c', opts)
 
 -- Delete inside word --
-keymap("n", "ds", '"_ciw', opts)
+keymap("n", "dw", '"_ciw', opts)
+
+-- Copy inside word
+keymap("n", "yw", "yiw", opts)
 
 -- Change buffer  --
 keymap("n", "<Space>h", ":bp<CR>", opts)
 keymap("n", "<Space>l", ":bn<CR>", opts)
 
 -- Close buffer --
-keymap("n", "<Space>x", ":bd<CR>", opts)
+keymap("n", "Q", ":bd<CR>", opts)
 
 -- Move cursor left
 keymap("i", "<C-z>", "<Esc>la", opts)
@@ -62,8 +78,8 @@ keymap("x", "<M-j>", ":m '>+1<CR>gv=gv", opts)
 keymap("x", "<M-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- Duplicate block up, down --
-keymap("v", "<M-q>", ":t$ <CR>gv=gv", opts)
-keymap("v", "<M-m>", ":t'><CR>", opts)
+keymap("v", "<M-q>", ":t'><CR>gv", opts)
+keymap("v", "<M-m>", ":t-1<CR>gv", opts)
 
 -- Alt+o to no hightlight --
 keymap("", "<M-o>", ":noh<CR>", opts)
@@ -95,29 +111,32 @@ keymap("n", ";e", "<cmd>lua require('telescope.builtin').diagnostics()<CR>", opt
 keymap("n", ";h", "<cmd>lua require('telescope.builtin').resume()<CR>", opts)
 
 -- Lspsaga --
--- Diagnsotic jump can use `<c-o>` to jump back
 keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", term_opts)
 keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", term_opts)
 
 -- Only jump to error
-keymap("n", "[E",
-    'require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })'
+vim.keymap.set("n", "[E",
+    function()
+        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end
     , term_opts)
 
-keymap("n", "]E",
-    'require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })'
+vim.keymap.set("n", "]E",
+    function()
+        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end
     , term_opts)
 
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-keymap("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", opts)
-keymap("n", "<C-k>", "<cmd>Lspsaga signature_help<CR>", opts)
-keymap("n", "gp", "<cmd>Lspsaga preview_definition<CR>", opts)
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
-keymap("n", "<Space>o", "<cmd>Lspsaga outline<CR>", opts)
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+keymap("n", "<Space>cn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 keymap("n", "<Space>a", "<cmd>Lspsaga code_action<CR>", opts)
 
 -- Luasnip --
-keymap("i", "<Tab>", 'luasnip#expand_or_jumpable() ? "<Plug>luasnip-expand-or-jump" : "<Tab>"', opts)
+-- keymap("i", "<Tab>", 'luasnip#expand_or_jumpable() ? "<Plug>luasnip-expand-or-jump" : "<Tab>"', opts)
 
 -- Trouble
 keymap("n", "<Space>p", "<cmd>TroubleToggle<CR>", opts)

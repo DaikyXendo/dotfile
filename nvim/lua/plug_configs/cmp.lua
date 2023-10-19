@@ -3,9 +3,9 @@ if (not status) then
     return
 end
 
-local lspkind = require 'lspkind'
+require("luasnip.loaders.from_vscode").lazy_load()
 
-vim.api.nvim_set_hl(0, "MyPmenuSel", { bg = "#61afef", fg = "#282c34", bold = true })
+local lspkind = require 'lspkind'
 
 cmp.setup({
     -- Select first item
@@ -14,7 +14,8 @@ cmp.setup({
     },
     window = {
         completion = {
-            winhighlight = "Normal:Pmenu,CursorLine:WildMenu,Search:None",
+            -- winhighlight = "Normal:Pmenu,CursorLine:WildMenu,Search:None",
+            winhighlight = "Normal:Pmenu,Search:None",
         }
     },
     snippet = {
@@ -51,12 +52,15 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         -- { name = "cmp_tabnine" },
-        { name = "codeium" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
     }),
     formatting = {
-        format = lspkind.cmp_format({ wirth_text = false, maxwidth = 80 }),
+        format = lspkind.cmp_format({
+            wirth_text = false,
+            maxwidth = 80,
+            before = require("tailwindcss-colorizer-cmp").formatter
+        }),
     }
 })

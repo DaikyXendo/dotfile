@@ -1,11 +1,21 @@
 local telescope = require('telescope')
 
 telescope.setup {
+    pickers = {
+        find_files = {
+            hidden = true
+        }
+    },
     defaults = {
         prompt_prefix = "🔎 ",
         selection_caret = " ",
         path_display = { "smart" },
+        layout_config = {
+            width = 0.95,
+            preview_width = 0.6
+        },
         file_ignore_patterns = {
+            "assets/",
             "%.blend",
             "%.glb",
             "%.wav",
