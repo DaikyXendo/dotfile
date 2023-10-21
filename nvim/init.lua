@@ -2,7 +2,7 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 -- Plugins
-require("plugins.packer")
+require("lazynvim")
 
 -- Options & Keymaps
 require("options.colorscheme")

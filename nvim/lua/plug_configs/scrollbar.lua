@@ -25,6 +25,7 @@ scrollbar.setup({
         "NvimTree",
         "alpha",
         "lspinfo",
+        "layzy"
     },
 })
 
