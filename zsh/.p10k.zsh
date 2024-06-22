@@ -183,7 +183,7 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=256
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=231
   typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=96
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
@@ -869,7 +869,7 @@
 
   ###########[ timewarrior: timewarrior tracking status (https://timewarrior.net/) ]############
   # Timewarrior color.
-  typeset -g POWERLEVEL9K_TIMEWARRIOR_FOREGROUND=256
+  typeset -g POWERLEVEL9K_TIMEWARRIOR_FOREGROUND=232
   typeset -g POWERLEVEL9K_TIMEWARRIOR_BACKGROUND=81
 
   # If the tracked task is longer than 24 characters, truncate and append "…".
@@ -1654,7 +1654,7 @@
 
   ####################################[ time: current time ]####################################
   # Current time color.
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND=256
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=232
   typeset -g POWERLEVEL9K_TIME_BACKGROUND=81
   # Format for the current time: 09:51:02. See `man 3 strftime`.
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'

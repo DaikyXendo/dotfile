@@ -13,8 +13,6 @@ export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="/Users/thanhlevan/.local/share/solana/install/active_release/bin:$PATH"
 export PATH="/usr/local/opt/node@16/bin:$PATH"
-export OPENAI_API_KEY="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"
-export PATH="/Applications/Google Chrome.app/Contents/MacOS:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -87,6 +85,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     z
+    fzf-tab
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -154,7 +153,28 @@ format() {
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /Users/thanhlevan/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-cd ~/Documents/code/
+# initialize autocompletion
+autoload -U compinit
+compinit
+
+# history setup
+HISTSIZE=5000
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=$HISTSIZE
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt hist_find_no_dups
+
+# eval "$(fzf --zsh)"
+
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# zstyle ':completion:*' menu no
+# zstyle 'fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -162,6 +182,8 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export NVM_DIR=$HOME/.nvm
+export PATH="$PATH:/Users/thanhlevan/.dotnet/tools"
+export OPENAI_API_KEY="<your openai api key>"
 
 JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
 export JAVA_HOME
@@ -175,6 +197,23 @@ source  /usr/local/opt/chruby/share/chruby/auto.sh
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+export TERMINAL="kitty"
 export TERM="xterm-kitty"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# Bind Ctrl-S to trigger the fzf autosuggestion menu
+bindkey '^S' fzf-history-widget
+
+fzf-history-widget() {
+    local selected_command
+    selected_command=$(fc -rl 1 | fzf --height 40% --reverse --tac | sed 's/ *[0-9]* *//')
+    if [[ -n $selected_command ]]; then
+        BUFFER=$selected_command
+        CURSOR=$#BUFFER
+    fi
+    zle reset-prompt
+}
+
+cd ~/Documents/code/
 
 
