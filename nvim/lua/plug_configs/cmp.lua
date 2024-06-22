@@ -1,11 +1,11 @@
-local status, cmp = pcall(require, 'cmp')
-if (not status) then
+local status, cmp = pcall(require, "cmp")
+if not status then
     return
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local lspkind = require 'lspkind'
+local lspkind = require("lspkind")
 
 cmp.setup({
     -- Select first item
@@ -16,18 +16,18 @@ cmp.setup({
         completion = {
             -- winhighlight = "Normal:Pmenu,CursorLine:WildMenu,Search:None",
             winhighlight = "Normal:Pmenu,Search:None",
-        }
+        },
     },
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-        end
+            require("luasnip").lsp_expand(args.body)
+        end,
     },
     mapping = cmp.mapping.preset.insert({
-        ['<Up>'] = cmp.mapping.scroll_docs(-4),
-        ['<Down>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<Tab>'] = cmp.mapping(function()
+        ["<Up>"] = cmp.mapping.scroll_docs(-4),
+        ["<Down>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<Tab>"] = cmp.mapping(function()
             if cmp.visible() then
                 cmp.select_next_item()
             end
@@ -43,9 +43,9 @@ cmp.setup({
             "i",
             "s",
         }),
-        ['<CR>'] = cmp.mapping.confirm({
+        ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true
+            select = true,
         }),
     }),
     sources = cmp.config.sources({
@@ -60,7 +60,7 @@ cmp.setup({
         format = lspkind.cmp_format({
             wirth_text = false,
             maxwidth = 80,
-            before = require("tailwindcss-colorizer-cmp").formatter
+            before = require("tailwindcss-colorizer-cmp").formatter,
         }),
-    }
+    },
 })

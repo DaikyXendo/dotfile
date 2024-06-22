@@ -9,29 +9,30 @@ local keymap = vim.api.nvim_set_keymap
 -------------------------------------------------------
 
 -- Some time type :W instead of :w
-vim.api.nvim_create_user_command('W', function()
+vim.api.nvim_create_user_command("W", function()
     vim.api.nvim_command("w")
 end, {})
 
-vim.api.nvim_create_user_command('Git',
-    function(opts)
-        if opts.fargs[1] == "diff" then
-            vim.api.nvim_command("VGit buffer_diff_preview")
-        elseif opts.fargs[1] == "his" then
-            vim.api.nvim_command("VGit buffer_history_preview")
-        elseif opts.fargs[1] == "pdiff" then
-            vim.api.nvim_command("VGit project_diff_preview")
-        end
-    end,
-    { nargs = 1 })
-
+vim.api.nvim_create_user_command("Git", function(opts)
+    if opts.fargs[1] == "diff" then
+        vim.api.nvim_command("VGit buffer_diff_preview")
+    elseif opts.fargs[1] == "his" then
+        vim.api.nvim_command("VGit buffer_history_preview")
+    elseif opts.fargs[1] == "pdiff" then
+        vim.api.nvim_command("VGit project_diff_preview")
+    end
+end, { nargs = 1 })
 
 -- Ctrl + C = Esc
-keymap("i", "<C-c>", "<Esc><Esc>", opts)
+keymap("i", "<C-c>", "<Esc>", opts)
+
+-- Ctrl + S = Save
+keymap("i", "<C-s>", "<C-c>:w<CR>", opts)
+keymap("n", "<C-s>", ":w<CR>", opts)
 
 -- Center line
-keymap('n', 'j', 'jzz', opts)
-keymap('n', 'k', 'kzz', opts)
+keymap("n", "j", "jzz", opts)
+keymap("n", "k", "kzz", opts)
 
 -- Resize pane --
 keymap("n", "<M-Right>", ":vertical resize +1<CR>", opts)
@@ -100,7 +101,7 @@ keymap("n", "<Space>f", "<cmd>lua require('spectre').open()<CR>", opts)
 -- Hop --
 keymap("", "s", "<cmd>HopWord<CR>", term_opts)
 keymap("", "L", "<cmd>HopLine<CR>", term_opts)
-keymap("", "S", "<cmd>HopPattern<CR>", term_opts)
+keymap("", "<A-s>", "<cmd>HopPattern<CR>", term_opts)
 
 -- Telescope --
 keymap("n", ";;", "<cmd>lua require('telescope.builtin').find_files()<CR>", opts)
@@ -115,17 +116,13 @@ keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", term_opts)
 keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", term_opts)
 
 -- Only jump to error
-vim.keymap.set("n", "[E",
-    function()
-        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end
-    , term_opts)
+vim.keymap.set("n", "[E", function()
+    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, term_opts)
 
-vim.keymap.set("n", "]E",
-    function()
-        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end
-    , term_opts)
+vim.keymap.set("n", "]E", function()
+    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, term_opts)
 
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -141,10 +138,23 @@ keymap("n", "<Space>a", "<cmd>Lspsaga code_action<CR>", opts)
 -- Trouble
 keymap("n", "<Space>p", "<cmd>TroubleToggle<CR>", opts)
 
+-- Undo tree
+vim.keymap.set("n", "<Space>u", "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", opts)
+
 -- Codeium --
 vim.g.codeium_disable_bindings = 1
-vim.keymap.set("i", "<S-CR>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
-vim.keymap.set("i", "<A-n>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true })
-vim.keymap.set("i", "<A-p>", function() return vim.fn["codeium#CycleCompletions"](-1) end, { expr = true })
-vim.keymap.set("i", "<A-s>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
-vim.keymap.set("i", "<A-.>", function() return vim.fn["codeium#Complete"]() end, { expr = true })
+vim.keymap.set("i", "<S-CR>", function()
+    return vim.fn["codeium#Accept"]()
+end, { expr = true })
+vim.keymap.set("i", "<A-n>", function()
+    return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true })
+vim.keymap.set("i", "<A-p>", function()
+    return vim.fn["codeium#CycleCompletions"](-1)
+end, { expr = true })
+vim.keymap.set("i", "<A-s>", function()
+    return vim.fn["codeium#Clear"]()
+end, { expr = true })
+vim.keymap.set("i", "<A-.>", function()
+    return vim.fn["codeium#Complete"]()
+end, { expr = true })

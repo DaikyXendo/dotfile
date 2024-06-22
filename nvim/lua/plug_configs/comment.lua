@@ -1,13 +1,12 @@
 local comment = require("Comment")
 
-comment.setup {
+comment.setup({
     ignore = "^$",
     pre_hook = function(ctx)
-
         require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
 
         if vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript" then
-            local U = require "Comment.utils"
+            local U = require("Comment.utils")
 
             -- Determine whether to use linewise or blockwise commentstring
             local type = ctx.ctype == U.ctype.linewise and "__default" or "__multiline"
@@ -20,10 +19,10 @@ comment.setup {
                 location = require("ts_context_commentstring.utils").get_visual_start_location()
             end
 
-            return require("ts_context_commentstring.internal").calculate_commentstring {
+            return require("ts_context_commentstring.internal").calculate_commentstring({
                 key = type,
                 location = location,
-            }
+            })
         end
     end,
-}
+})

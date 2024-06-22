@@ -1,7 +1,9 @@
 local icons = {
-
     diagnostics = {
-        error = " ", warning = " ", hint = "󰌶 ", info = " "
+        error = " ",
+        warning = " ",
+        hint = "󰌶 ",
+        info = " ",
     },
     lsp_type = {
         Text = "🔤",
@@ -28,7 +30,7 @@ local icons = {
         Struct = "🧱",
         Event = "✨",
         Operator = "➗",
-        TypeParameter = " "
+        TypeParameter = " ",
     },
     config = {
         find_file = " ",
@@ -39,5 +41,5 @@ local icons = {
         settings = "漣",
         update = " ",
         exit = " ",
-    }
+    },
 }

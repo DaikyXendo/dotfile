@@ -1,5 +1,5 @@
-local status, colorscheme = pcall(require, 'onedarkpro')
-if (not status) then
+local status, colorscheme = pcall(require, "onedarkpro")
+if not status then
     return
 end
 

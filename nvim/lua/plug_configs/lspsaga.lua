@@ -1,4 +1,4 @@
-local status, saga = pcall(require, 'lspsaga')
+local status, saga = pcall(require, "lspsaga")
 if not status then
     return
 end
@@ -14,7 +14,7 @@ saga.setup({
         code_action = "💡",
         incoming = " ",
         outgoing = " ",
-        hover = ' ',
+        hover = " ",
         kind = {
             ["Folder"] = { "📂", "@comment" },
             ["Text"] = { "🔤", "String" },
@@ -42,15 +42,14 @@ saga.setup({
             ["Operator"] = { "➗", "Operator" },
             ["TypeParameter"] = { " ", "Type" },
 
-
-            ['Namespace'] = { '🗃️', 'Include' },
-            ['Package'] = { '📦', 'Label' },
-            ['String'] = { '🔤', 'String' },
-            ['Number'] = { '🔢', 'Number' },
-            ['Boolean'] = { '❓', 'Boolean' },
-            ['Array'] = { '⛓️ ', 'Type' },
-            ['Object'] = { '📚', 'Type' },
-            ['Null'] = { '🟩', 'Constant' },
+            ["Namespace"] = { "🗃️", "Include" },
+            ["Package"] = { "📦", "Label" },
+            ["String"] = { "🔤", "String" },
+            ["Number"] = { "🔢", "Number" },
+            ["Boolean"] = { "❓", "Boolean" },
+            ["Array"] = { "⛓️ ", "Type" },
+            ["Object"] = { "📚", "Type" },
+            ["Null"] = { "🟩", "Constant" },
         },
     },
     outline = {
@@ -61,21 +60,20 @@ saga.setup({
         },
     },
     lightbulb = {
-        enable = false
+        enable = false,
     },
     finder = {
         --percentage
         max_height = 0.7,
         keys = {
-            jump_to = 'p',
-            edit = { 'o', '<CR>' },
-            vsplit = 's',
-            split = 'i',
-            tabe = 't',
-            tabnew = 'r',
-            quit = { 'q', '<ESC>' },
-            close_in_preview = '<ESC>'
+            jump_to = "p",
+            edit = { "o", "<CR>" },
+            vsplit = "s",
+            split = "i",
+            tabe = "t",
+            tabnew = "r",
+            quit = { "q", "<ESC>" },
+            close_in_preview = "<ESC>",
         },
     },
 })
-

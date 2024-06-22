@@ -24,8 +24,9 @@ scrollbar.setup({
         "noice",
         "NvimTree",
         "alpha",
+        "dashboard",
         "lspinfo",
-        "layzy"
+        "layzy",
     },
 })
 

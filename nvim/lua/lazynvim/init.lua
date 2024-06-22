@@ -15,14 +15,12 @@ require("lazy").setup({
     -- Startup
     "goolord/alpha-nvim",
 
-    -- Speed up
-    "lewis6991/impatient.nvim",
-
     -- Indent
     "lukas-reineke/indent-blankline.nvim",
 
     -- Surround
-    "kylechui/nvim-surround",
+    "tpope/vim-surround",
+
     -- Css color
     "NvChad/nvim-colorizer.lua",
 
@@ -45,10 +43,14 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter-textobjects",
 
     -- Icons
-    "DaikyXendo/nvim-web-devicons",
+    "DaikyXendo/nvim-material-icon",
 
     -- File browser
-    { "nvim-tree/nvim-tree.lua", commit = "c3c6544ee00333b0f1d6a13735d0dd302dba4f70" },
+    -- { "nvim-tree/nvim-tree.lua", commit = "c3c6544ee00333b0f1d6a13735d0dd302dba4f70" },
+    "nvim-tree/nvim-tree.lua",
+
+    -- View file
+    "edluffy/hologram.nvim",
 
     -- File search
     "nvim-lua/plenary.nvim",
@@ -76,30 +78,40 @@ require("lazy").setup({
 
     -- AI
     "Exafunction/codeium.vim",
+    "jackMort/ChatGPT.nvim",
 
     -- Snippet
-    "L3MON4D3/LuaSnip",
+    {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
+    },
     "saadparwaiz1/cmp_luasnip",
     "rafamadriz/friendly-snippets",
 
     -- LSP installer
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "j-hui/fidget.nvim",       tag = "legacy" },
+    "j-hui/fidget.nvim",
 
     -- Trouble
-    "folke/trouble.nvim",
+    -- "folke/trouble.nvim",
 
     -- Rust
     "Saecki/crates.nvim",
-    "simrat39/rust-tools.nvim",
+    {
+        "mrcjkb/rustaceanvim",
+        version = "^4", -- Recommended
+        lazy = false,
+    },
 
     -- Close tag
     "windwp/nvim-autopairs",
     "windwp/nvim-ts-autotag",
 
     -- Formatter
-    "jose-elias-alvarez/null-ls.nvim",
+    "stevearc/conform.nvim",
 
     -- Comment
     "numToStr/Comment.nvim",
@@ -111,12 +123,12 @@ require("lazy").setup({
     -- Tailwind
     "roobert/tailwindcss-colorizer-cmp.nvim",
 
+    -- Undo tree
+    "mbbill/undotree",
+
     -- Git
     "tanvirtin/vgit.nvim",
-    "lewis6991/gitsigns.nvim",
-
-    -- Regex
-    'bennypowers/nvim-regexplainer',
+    { "lewis6991/gitsigns.nvim", commit = "031abb065452248c30ce8d8fb4d4eb9eeb69d1f0" },
 
     -- Scroll bar
     "petertriho/nvim-scrollbar",

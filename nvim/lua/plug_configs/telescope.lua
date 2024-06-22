@@ -1,10 +1,10 @@
-local telescope = require('telescope')
+local telescope = require("telescope")
 
-telescope.setup {
+telescope.setup({
     pickers = {
         find_files = {
-            hidden = true
-        }
+            hidden = true,
+        },
     },
     defaults = {
         prompt_prefix = "🔎 ",
@@ -12,7 +12,7 @@ telescope.setup {
         path_display = { "smart" },
         layout_config = {
             width = 0.95,
-            preview_width = 0.6
+            preview_width = 0.6,
         },
         file_ignore_patterns = {
             "assets/",
@@ -76,4 +76,4 @@ telescope.setup {
             "%.tar.gz",
         },
     },
-}
+})
